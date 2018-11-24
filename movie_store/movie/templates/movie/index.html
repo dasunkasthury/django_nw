@@ -1,0 +1,16 @@
+{% if All_Movies %}
+
+    <h1>Hear are my all movies</h1>
+
+    <ul>
+        {% for movies in All_Movies %}
+        <li><a href="{% url 'movie:detail' movies.id %}">{{movies.movie_name}}.</a></li>
+        {% endfor %}
+
+    </ul>
+
+
+{% else %}
+    <h3>you don't have any movies</h3>
+
+{% endif %}

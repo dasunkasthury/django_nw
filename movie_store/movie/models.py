@@ -1,4 +1,5 @@
 from django.db import models
+from sqlalchemy.sql.functions import mode
 
 
 class Director(models.Model):
@@ -12,6 +13,7 @@ class Director(models.Model):
 
 class Genres(models.Model):
     genres_category = models.CharField(max_length=250)
+    is_favourite = models.BooleanField(default=False)
 
     def __str__(self):
         return self.genres_category
@@ -27,6 +29,7 @@ class Movies(models.Model):
     director = models.ForeignKey(Director, on_delete=models.CASCADE)
     genres = models.ManyToManyField(Genres)
     poster = models.CharField(max_length=1000)
+    is_favourite = models.BooleanField(default=False )
 
     def __str__(self):
         return self.movie_name

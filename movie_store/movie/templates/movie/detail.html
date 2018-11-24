@@ -1,0 +1,46 @@
+<h1> hear is the details of the {{ movie.movie_name }} movie </h1>
+
+<img src="{{ movie.poster}}">
+
+<h2>{{ movie.movie_name }}</h2>
+<h2> director is :{{ movie.director }}</h2>
+
+<h3>{{ movie.ratings }}</h3>
+
+<!--
+
+    <ul>
+        {%  for genres in movie.genres.all %}
+            <li> {{ genres.genres_category }} </li>
+        {% endfor %}
+
+
+    </ul>
+
+
+
+
+-->
+
+
+{% if error_message %}
+<p> <strong >{{error_message}}</strong></p>
+
+{% endif %}
+
+<form action="{% url 'movie:favourite' movie.id %}" method="post"  >
+    {% csrf_token %}
+    {% for genres in movie.genres.all %}
+        <input type="radio"  id="genres{{ forloop.counter }}" name="genres" value="{{ genres.id }}"/>
+        <label for="genres{{forloop.counter}}" >
+            {{genres.genres_category}}
+            {% if genres.is_favourite  %}
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Choice_toxicity_icon.png"/>
+
+
+            {% endif %}
+
+        </label><br>
+    {% endfor %}
+    <input type="submit" value="submit" >
+</form>
